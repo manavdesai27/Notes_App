@@ -13,6 +13,9 @@ const noteSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  dueAt: {
+    type: Date,
+  },
 });
 
 module.exports = mongoose.model("Note", noteSchema);

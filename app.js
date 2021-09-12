@@ -10,6 +10,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
+app.use(express.static(__dirname + '/public'));
 
 app.get("/", async (req, res) => {
   res.redirect("/all");
@@ -17,7 +18,7 @@ app.get("/", async (req, res) => {
 
 app.get("/all", async (req, res) => {
   const notes = await Note.find().sort("-createdAt");
-  res.render("index", { notes: notes });
+  res.render("test", { notes: notes });
 });
 
 mongoose.connect(process.env.SERVER, {
@@ -26,6 +27,6 @@ mongoose.connect(process.env.SERVER, {
 });
 
 app.use("/", notesRouter);
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Server started...");
+app.listen(5000, () => {
+  console.log("Server started!");
 });
