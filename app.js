@@ -2,15 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Note = require("./models/note");
 const notesRouter = require("./routes/notes");
-const methodOverride = require('method-override');
+const methodOverride = require("method-override");
 require("dotenv").config();
 
 const app = express();
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
-app.use(methodOverride('_method'));
-app.use(express.static(__dirname + '/public'));
+app.use(methodOverride("_method"));
+app.use(express.static(__dirname + "/public"));
 
 app.get("/", async (req, res) => {
   res.redirect("/all");
@@ -27,6 +27,6 @@ mongoose.connect(process.env.SERVER, {
 });
 
 app.use("/", notesRouter);
-app.listen(5000, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log("Server started!");
 });
