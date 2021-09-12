@@ -94,47 +94,51 @@
 
         <form action="/all">
             <button class="btn btn-primary" style="margin: 5px 0; width: 100%;" type="submit">
-                 All Tasks
+                All Tasks
             </button>
 
 
-        <div class="tab-content bg-transparent">
+            <div class="tab-content bg-transparent">
 
-                        <div id="note-full-container" class="note-has-grid row">
+                <div id="note-full-container" class="note-has-grid row">
 
-                            <% notes.forEach(note=> { %>
+                    <% notes.forEach(note=> { %>
 
-                                <% if (note.createdAt.toLocaleDateString() == new Date(note.dueAt).toLocaleDateString())
-                                    { %>
-                                    <div class="col-md-4 single-note-item all-category note-important">
-                                        <div class="card card-body" style="border-color: #2cabe3; border-width: 2px;">
-                                            <h5 class="note-title text-truncate w-75 mb-0">
-                                                <%= note.title %>
+                        <% if (note.createdAt.toLocaleDateString()==new Date(note.dueAt).toLocaleDateString()) { %>
+                            <div class="col-md-4 single-note-item all-category note-important">
+                                <div class="card card-body" style="border-color: #2cabe3; border-width: 2px;">
+                                    <h5 class="note-title text-truncate w-75 mb-0">
+                                        <%= note.title %>
 
-                                            </h5>
-                                            <p class="note-date font-12 text-muted">
-                                                Assigned at: <%= note.createdAt.toLocaleDateString() %> <br> <span
-                                                        style="background-color: #232e3c; color:white; padding: 3px; border-radius: 2px;">Deadline:
-                                                        <%=new Date(note.dueAt).toLocaleDateString() %>
-                                                    </span>
-                                            </p>
+                                    </h5>
+                                    <p class="note-date font-12 text-muted">
+                                        Assigned at: <%= note.createdAt.toLocaleDateString() %> <br> <span
+                                                style="background-color: #232e3c; color:white; padding: 3px; border-radius: 2px;">Deadline:
+                                                <%=new Date(note.dueAt).toLocaleDateString() %>
+                                            </span>
+                                    </p>
 
-                                            <div class="note-content">
-                                                <p class="note-inner-content text-muted">
-                                                    <%= note.description %>
-                                                </p>
-                                            </div>
-
-                                        </div>
-                                        <% } %>
-
-
-
-
-                                            <% }) %>
+                                    <div class="note-content">
+                                        <p class="note-inner-content text-muted">
+                                            <%= note.description %>
+                                        </p>
                                     </div>
-                        </div>
-        </div>
+
+                                    <% if (note.completed=="1" ) { %>
+                                        <span
+                                            style="background-color: green; color: white; padding: 3px; border-radius: 2px; font-size: 12px; margin: 0px; width: fit-content;">Completed</span>
+                                        <% } %>
+                                </div>
+                            </div>
+                            <% } %>
+
+
+
+
+                                <% }) %>
+                </div>
+            </div>
+    </div>
 </body>
 
 </html>

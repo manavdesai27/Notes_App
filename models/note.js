@@ -16,6 +16,10 @@ const noteSchema = new mongoose.Schema({
   dueAt: {
     type: Date,
   },
+  completed: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("Note", noteSchema);

@@ -99,19 +99,24 @@
         </form>
 
         <div class="row" style="margin-bottom: 10px;">
-            <form action="/pending" class="col-md-4">
+            <form action="/pending" class="col-md-3">
                 <button class="btn btn-outline-danger" style="margin: 5px 0; width: 100%;" type="submit">
                     <i class="fa fa-clock-o"></i> Pending Tasks
                 </button>
             </form>
-            <form action="/today" class="col-md-4">
+            <form action="/today" class="col-md-3">
                 <button class="btn btn-outline-info" style="margin: 5px 0; width: 100%;" type="submit">
                     Today's Tasks
                 </button>
             </form>
-            <form action="/passed" class="col-md-4">
+            <form action="/passed" class="col-md-3">
                 <button class="btn btn-outline-success" style="margin: 5px 0; width: 100%;" type="submit">
                     Deadline Passed
+                </button>
+            </form>
+            <form action="/completed" class="col-md-3">
+                <button class="btn btn-outline-success" style="margin: 5px 0; width: 100%;" type="submit">
+                    Completed Tasks
                 </button>
             </form>
         </div>
@@ -151,33 +156,59 @@
                                         <form action="/all/<%= note._id %>?_method=DELETE" method="POST">
                                             <% if (note.createdAt.toLocaleDateString() < new
                                                 Date(note.dueAt).toLocaleDateString()) { %>
-                                                <span
-                                                    style="background-color: #d63939; color: white; padding: 3px; border-radius: 2px; font-size: 12px; margin: 0px;">PENDING</span>
-                                                <% } %>
-                                                    <% if (note.createdAt.toLocaleDateString()==new
-                                                        Date(note.dueAt).toLocaleDateString()) { %>
-                                                        <span
-                                                            style="background-color: #d63939; color: white; padding: 3px; border-radius: 2px; font-size: 12px; margin: 0px;">DEADLINE!</span>
-                                                        <span
-                                                            style="background-color: #34acc0; color: white; padding: 3px; border-radius: 2px; font-size: 12px; margin: 0px;">TODAY</span>
+
+                                                <% if (note.completed=="0" ) { %>
+
+                                                    <span
+                                                        style="background-color: #d63939; color: white; padding: 3px; border-radius: 2px; font-size: 12px; margin: 0px;">PENDING</span>
+                                                    <% } %>
                                                         <% } %>
 
-                                                            <% if (note.createdAt.toLocaleDateString()> new
+                                                            <% if (note.createdAt.toLocaleDateString()==new
                                                                 Date(note.dueAt).toLocaleDateString()) { %>
-                                                                <span
-                                                                    style="background-color: inherit; color: green; padding: 3px; border-radius: 2px; font-size: 12px; margin: 0px;">DEADLINE
-                                                                    PASSED...</span>
-                                                                <% } %>
+
+                                                                <% if (note.completed=="0" ) { %>
+                                                                    <span
+                                                                        style="background-color: #d63939; color: white; padding: 3px; border-radius: 2px; font-size: 12px; margin: 0px;">DEADLINE!</span>
+                                                                    <% } %>
+                                                                        <span
+                                                                            style="background-color: #34acc0; color: white; padding: 3px; border-radius: 2px; font-size: 12px; margin: 0px;">TODAY</span>
+
+                                                                        <% } %>
+
+                                                                            <% if (note.createdAt.toLocaleDateString()>
+                                                                                new
+                                                                                Date(note.dueAt).toLocaleDateString()) {
+                                                                                %>
+                                                                                <span
+                                                                                    style="background-color: inherit; color: green; padding: 3px; border-radius: 2px; font-size: 12px; margin: 0px;">DEADLINE
+                                                                                    PASSED...</span>
+                                                                                <% } %>
+
+                                                                                    <% if (note.completed=="1" ) { %>
+                                                                                        <span
+                                                                                            style="background-color: green; color: white; padding: 3px; border-radius: 2px; font-size: 12px; margin: 0px;">Completed</span>
+                                                                                        <% } %>
 
 
-                                                                    <button href="#"
-                                                                        class="btn btn-outline-danger float-right"><i
-                                                                            class="fa fa-trash-o"></i></button>
+                                                                                            <button href="#"
+                                                                                                class="btn btn-outline-danger float-right"><i
+                                                                                                    class="fa fa-trash-o"></i></button>
                                         </form>
+
+                                        <% if (note.completed==0) { %>
+                                            <button class="btn btn-success btn-sm" style="margin-top: 3px; width: fit-content;"><a
+                                                    href="/update/note/<%=note._id%>"
+                                                    style="margin-right:0px; text-decoration: none; color: white;">Mark
+                                                    as
+                                                    completed</a></button>
+                                            <% } %>
                                     </div>
 
                                 </div>
                                 <% }) %>
+
+
                         </div>
         </div>
     </div>

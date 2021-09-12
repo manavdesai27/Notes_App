@@ -22,6 +22,11 @@ router.get("/passed", async (req, res) => {
   res.render("passed", { notes: notes });
 });
 
+router.get("/completed", async (req, res) => {
+  const notes = await Note.find().sort("-createdAt");
+  res.render("completed", { notes: notes });
+});
+
 router.post("/", async (req, res) => {
   let note = await new Note({
     title: req.body.title,
@@ -36,6 +41,16 @@ router.post("/", async (req, res) => {
     console.log(error);
     res.render("new");
   }
+});
+
+router.get("/update/note/:_id",(req,res)=>{
+  const {_id}=req.params;
+  const info=Note.find();
+  Note.updateOne({_id}, { completed:"1"})
+  .then(()=>{
+      res.redirect('/')
+  })
+  .catch((err)=>console.log(err));
 });
 
 router.delete("/all/:id", async (req, res) => {
