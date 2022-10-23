@@ -45,7 +45,6 @@ router.post("/", async (req, res) => {
 
 router.get("/update/note/:_id",(req,res)=>{
   const {_id}=req.params;
-  const info=Note.find();
   Note.updateOne({_id}, { completed:"1"})
   .then(()=>{
       res.redirect('/')
